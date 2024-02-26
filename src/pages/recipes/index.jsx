@@ -1,27 +1,40 @@
-import { Container, Grid, Card, CardMedia, TextField, CardContent,Typography } from '@mui/material'
-import React from 'react'
+import { Container, Grid, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import RecipeItem from "../../components/recipe-item";
 
-export default function Recipes () {
+export default function Recipes() {
+    
+  const [recipes, setRecipes] = useState([]);
+
+  const searchRecipes = () => {
+    //prepare url
+    const url = new URL("https://api.spoonacular.com/recipes/complexSearch");
+    url.searchParams.append('apiKey', 'ae86e0958cd14bc1b757294d0e92a01d')
+    //fetch recipes
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        //update recipes state
+        // console.log({ data });
+        setRecipes(data.results)
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(searchRecipes, []);
+
   return (
-    <Container sx={{ my: '2rem'}} maxWidth="sm">
-        <TextField fullWidth id="outlined-basic" label="Outlined" variant="outlined" />
+    <Container sx={{ my: "2rem" }}>
+      <TextField
+        fullWidth
+        id="outlined-basic"
+        label="Outlined"
+        variant="outlined"
+      />
 
-        <Grid sx={{ mt: '1rem'}} container spacing={3} >
-            <Grid item xs={4}>
-                <Card>
-                    <CardMedia
-                    sx={{height: 140}}
-                    image='https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' />
-                </Card>
-                <CardContent>
-                <Typography variant="h5">
-                    Recipe Name
-                </Typography>
-            </CardContent>
-            </Grid>
-            
-
-        </Grid>
+      <Grid sx={{ mt: "1rem" }} container spacing={3}>
+        {recipes.map((recipe) => <RecipeItem key={recipe.id} title={recipe.title} image={recipe.image} />)}
+      </Grid>
     </Container>
-  )
+  );
 }
