@@ -15,9 +15,9 @@ export default function RecipeItem({image, title}) {
           <Card sx={{ maxWidth: 345 }}>
             <CardMedia
               component="img"
-              alt="green iguana"
+              alt={title}
               height="140"
-              image= {image}
+              image={image}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
