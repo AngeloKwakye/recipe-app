@@ -12,7 +12,7 @@ export default function RecipeItem({image, title}) {
   return (
     <>
         <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
+          <Card sx={{ maxWidth: 345, minHeight: 300 }}>
             <CardMedia
               component="img"
               alt={title}
