@@ -13,7 +13,7 @@ export default function Recipes() {
   const searchRecipes = () => {
     setLoading(true);
     //prepare url
-    const url = new URL("http://localhost:4000/recipes");
+    const url = new URL(`${process.env.REACT_APP_RECIPE_API_KEY}/recipes`);
     // const url = new URL("https://api.spoonacular.com/recipes/complexSearch");
     // url.searchParams.append('apiKey', process.env.REACT_APP_SPOONACULAR_API_KEY);
     // url.searchParams.append('query',query)

@@ -17,7 +17,7 @@ export default function RecipeItem({image, title, id}) {
             <CardMedia
             sx={{ height: 140 }}
               component="img"
-              image={`http://localhost:4000/images/${image}`}
+              image={`${process.env.REACT_APP_RECIPE_API_KEY}/images/${image}`}
               title={title}
             />
             <CardContent>
