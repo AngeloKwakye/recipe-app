@@ -6,23 +6,26 @@ import {
     CardContent,
     Typography,
   } from "@mui/material";
+import { Link } from 'react-router-dom';
 
 
-export default function RecipeItem({image, title}) {
+export default function RecipeItem({image, title, id}) {
   return (
     <>
         <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345, minHeight: 300 }}>
+          <Card sx={{ maxWidth: 345, height: '100%' }}>
             <CardMedia
+            sx={{ height: 140 }}
               component="img"
-              alt={title}
-              height="140"
-              image={image}
+              image={`http://localhost:4000/images/${image}`}
+              title={title}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+             <Link to={`/recipes/${id}`}>
+             <Typography gutterBottom variant="h5" component="div">
                 {title}
               </Typography>
+             </Link>
             </CardContent>
           </Card>
         </Grid>

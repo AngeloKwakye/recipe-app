@@ -2,14 +2,13 @@ import { Container, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RecipeItem from "../../components/recipe-item";
 import notfound from "../../assets/images/undraw_no_data_re_kwbl.svg";
-import spinner from "../../assets/images/infinite-spinner.svg"
+import spinner from "../../assets/images/infinite-spinner.svg";
 import NavBar from "../../components/navbar";
 
 export default function Recipes() {
-    
   const [recipes, setRecipes] = useState([]);
   const [query, getRecipe] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const searchRecipes = () => {
     setLoading(true);
@@ -24,10 +23,10 @@ export default function Recipes() {
       .then((data) => {
         //update recipes state
         // console.log({ data });
-        setRecipes(data.data)
+        setRecipes(data.data);
       })
       .catch((error) => console.log(error))
-      .finally(() => setLoading(false))
+      .finally(() => setLoading(false));
   };
 
   useEffect(searchRecipes, [query]);
@@ -36,21 +35,39 @@ export default function Recipes() {
     <>
       <NavBar />
 
-<Container sx={{ my: "2rem" }}>
-  <TextField
-    fullWidth
-    id="outlined-basic"
-    label="Search"
-    variant="outlined"
-    onKeyDown={event => event.key === "Enter" && getRecipe(event.target.value)}
-  />
+      <Container sx={{ my: "2rem" }}>
+        <TextField
+          fullWidth
+          id="outlined-basic"
+          label="Search"
+          variant="outlined"
+          onKeyDown={(event) =>
+            event.key === "Enter" && getRecipe(event.target.value)
+          }
+        />
 
-  <Grid sx={{ mt: "1rem" }} container spacing={3}>
-    {loading ? (<Container sx={{ display: 'flex', justifyContent: 'center'}}>  <img width='30%' src={spinner}/> </Container>) : recipes.length > 0 ? recipes.map((recipe) => <RecipeItem key={recipe._id} title={recipe.title} image={recipe.image} />) : (
-      <Container sx={{ display: 'flex', justifyContent: 'center'}}><img src={notfound} width='30%'/></Container>
-    )}
-  </Grid>
-</Container>
+        <Grid sx={{ mt: "1rem" }} container spacing={3}>
+          {loading ? (
+            <Container sx={{ display: "flex", justifyContent: "center" }}>
+              {" "}
+              <img width="30%" src={spinner} />{" "}
+            </Container>
+          ) : recipes.length > 0 ? (
+            recipes.map((recipe) => (
+              <RecipeItem
+                key={recipe._id}
+                title={recipe.title}
+                image={recipe.image}
+                id={recipe._id}
+              />
+            ))
+          ) : (
+            <Container sx={{ display: "flex", justifyContent: "center" }}>
+              <img src={notfound} width="30%" />
+            </Container>
+          )}
+        </Grid>
+      </Container>
     </>
   );
 }

@@ -10,7 +10,7 @@ export default function NavBar (){
    <>
      <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component={Link} to={'/'} color='inherit' sx={{ flexGrow: 1 }}>
             Recipe App
           </Typography>
           <Button variant="text"> <Link style={{textDecoration: 'none', color: 'white'}} to={'/add-recipe'}> ADD A NEW RECIPE</Link></Button>
